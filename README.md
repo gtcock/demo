@@ -1,1 +1,1 @@
-GTCOCK#
+GTCOCK
