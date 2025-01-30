@@ -1,20 +1,95 @@
 #!/bin/sh
 
-echo "-----  Starting server...----- "
-Token=${Token:-'eyJhIjoiMDNmZDcwNjc2ZjgyMDA4MzVmYTViM2EyZjYxMDE2YzIiLCJ0IjoiY2E5ZmM4ZDItMTM0Ni00NjkxLTgxODYtN2ZkMDZkNDQwZjlkIiwicyI6Ik1UYzNaRGRrT1RRdE5UVmxNQzAwTldJNUxXSTJZV1l0TWpoa1pHRmpOakpqWkdRMCJ9'}
+# 定义变量
+TOKEN=${Token:-'eyJhIjoiMDNmZDcwNjc2ZjgyMDA4MzVmYTViM2EyZjYxMDE2YzIiLCJ0IjoiY2E5ZmM4ZDItMTM0Ni00NjkxLTgxODYtN2ZkMDZkNDQwZjlkIiwicyI6Ik1UYzNaRGRrT1RRdE5UVmxNQzAwTldJNUxXSTJZV1l0TWpoa1pHRmpOakpqWkdRMCJ9'}
+WORK_DIR="$(pwd)"
 
-nohup ./server tunnel --edge-ip-version auto run --token $Token > server.log 2>&1 &
+# 清理旧文件
+cleanup_oldfiles() {
+  rm -rf ${WORK_DIR}/*.log
+}
 
-echo "-----  Starting web ...----- ."
+# 初始化
+init() {
+  cleanup_oldfiles
+  # 确保文件可执行
+  chmod +x ${WORK_DIR}/server ${WORK_DIR}/web ${WORK_DIR}/swith
+}
 
-nohup ./web run -c ./config.json > web.log 2>&1 &
+# 运行服务
+run_services() {
+  echo "-----  Starting server process...----- "
+  if [ -e "${WORK_DIR}/server" ]; then
+    nohup ${WORK_DIR}/server tunnel --edge-ip-version auto run --token $TOKEN > ${WORK_DIR}/server.log 2>&1 &
+    SERVER_PID=$!
+    echo "Server started with PID: $SERVER_PID"
+  else
+    echo "Server executable not found!"
+    exit 1
+  fi
+  sleep 2
 
-echo "Starting BOT process..."
+  echo "-----  Starting web process...----- "
+  if [ -e "${WORK_DIR}/web" ]; then
+    nohup ${WORK_DIR}/web run -c ./config.json > ${WORK_DIR}/web.log 2>&1 &
+    WEB_PID=$!
+    echo "Web started with PID: $WEB_PID"
+  else
+    echo "Web executable not found!"
+    exit 1
+  fi
+  sleep 2
 
-nohup ./swith -s nezha.godtop.us.kg:443 -p tOrejmhnKtZQO36KNz --tls > swith.log 2>&1 &
+  echo "-----  Starting BOT process...----- "
+  if [ -e "${WORK_DIR}/swith" ]; then
+    nohup ${WORK_DIR}/swith -s nezha.godtop.us.kg:443 -p tOrejmhnKtZQO36KNz --tls > ${WORK_DIR}/swith.log 2>&1 &
+    BOT_PID=$!
+    echo "BOT started with PID: $BOT_PID"
+  else
+    echo "BOT executable not found!"
+    exit 1
+  fi
+}
 
-BOT_PID=$!
+# 监控进程状态
+monitor_services() {
+  while true; do
+    if ! kill -0 $SERVER_PID 2>/dev/null; then
+      echo "Server process died, restarting..."
+      nohup ${WORK_DIR}/server tunnel --edge-ip-version auto run --token $TOKEN > ${WORK_DIR}/server.log 2>&1 &
+      SERVER_PID=$!
+    fi
+    
+    if ! kill -0 $WEB_PID 2>/dev/null; then
+      echo "Web process died, restarting..."
+      nohup ${WORK_DIR}/web run -c ./config.json > ${WORK_DIR}/web.log 2>&1 &
+      WEB_PID=$!
+    fi
+    
+    if ! kill -0 $BOT_PID 2>/dev/null; then
+      echo "BOT process died, restarting..."
+      nohup ${WORK_DIR}/swith -s nezha.godtop.us.kg:443 -p tOrejmhnKtZQO36KNz --tls > ${WORK_DIR}/swith.log 2>&1 &
+      BOT_PID=$!
+    fi
+    
+    sleep 30
+  done
+}
 
-echo "BOT process started with PID: $BOT_PID"
+# 主程序
+main() {
+  init
+  run_services
+  # 后台启动监控
+  monitor_services &
+  
+  echo "All services started, tailing logs..."
+  # 显示所有日志
+  tail -f ${WORK_DIR}/*.log
+}
 
-tail -f server.log  web.log  swith.log
+# 运行主程序
+main
+
+# 捕获退出信号
+trap 'cleanup_oldfiles; kill $(jobs -p) 2>/dev/null; exit' INT TERM
