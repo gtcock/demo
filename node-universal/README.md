@@ -13,4 +13,4 @@
   | COCKCOCKNA   | 否 |                                             |节点名称前缀，例如：Glitch，Replit |
   | COCKCOCKFP   | 否 |   ./temp	                                  |运行目录,节点存放路径|
   | COCKCOCKUL   | 否 |                                             |项目分配的域名|
-  | COCKCOCKTI   | 否 |   120                                       |自动访问间隔时间（默认120秒）单位：秒|  
+  | COCKCOCKTM   | 否 |   120                                       |自动访问间隔时间（默认120秒）单位：秒|  
