@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # 定义变量
-TOKEN=${Token:-'eyJhIjoiMDNmZDcwNjc2ZjgyMDA4MzVmYTViM2EyZjYxMDE2YzIiLCJ0IjoiY2E5ZmM4ZDItMTM0Ni00NjkxLTgxODYtN2ZkMDZkNDQwZjlkIiwicyI6Ik1UYzNaRGRrT1RRdE5UVmxNQzAwTldJNUxXSTJZV1l0TWpoa1pHRmpOakpqWkdRMCJ9'}
+TOKEN=${Token:-'eyJhIjoiMDNmZDcwNjc2ZjgyMDA4MzVmYTViM2EyZjYxMDE2YzIiLCJ0IjoiMDE3ZjM3NzItM2VjMS00ZTNiLThlNjMtNmI3NWQ0OTY1NWU1IiwicyI6Ik9EUTNaVEUxWVRjdFpqRXhZUzAwWmpnMUxXRXpNVFV0TUdWa05UQXdZMkl3TURBNSJ9'}
 WORK_DIR="$(pwd)"
 
 # 清理旧文件
@@ -42,7 +42,7 @@ run_services() {
 
   echo "-----  Starting BOT process...----- "
   if [ -e "${WORK_DIR}/swith" ]; then
-    nohup ${WORK_DIR}/swith -s nezha.godtop.us.kg:443 -p tOrejmhnKtZQO36KNz --tls > ${WORK_DIR}/swith.log 2>&1 &
+    nohup ${WORK_DIR}/swith -s nezha.godtop.us.kg:443 -p yLNa1X20zOBwKV8keO --tls > ${WORK_DIR}/swith.log 2>&1 &
     BOT_PID=$!
     echo "BOT started with PID: $BOT_PID"
   else
