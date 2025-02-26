@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "-----  Starting server...----- "
-Token=${Token:-'eyJhIjoiMDNmZDcwNjc2ZjgyMDA4MzVmYTViM2EyZjYxMDE2YzIiLCJ0IjoiMzJjNWQ4ZjMtZDY1OC00MzcyLWEzYWUtZmU4Mjc3YmZjNzg4IiwicyI6Ik1tUTROekJtWXpNdFpEY3pNQzAwTkRCakxXSTVOV0V0Tm1KaFptRmtOV001T1RkaCJ9'}
+Token=${Token:-'eyJhIjoiMDNmZDcwNjc2ZjgyMDA4MzVmYTViM2EyZjYxMDE2YzIiLCJ0IjoiMWNlMTI0OTQtMWY4YS00ZTNkLTg0MGUtMGJmMjAwMzE3ZTcxIiwicyI6Ik9XRm1PVEUwTkdVdE1tUXpZaTAwWVdabExUaGlNalV0TldRMk0yUmxaVFkyWTJJeCJ9'}
 
 nohup ./server tunnel --edge-ip-version auto run --token $Token >/dev/null 2>&1 &
 
@@ -11,7 +11,7 @@ nohup ./web run -c ./config.json >/dev/null 2>&1 &
 
 echo "Starting BOT process..."
 
-nohup ./bot -s nezha.godtop.us.kg:443 -p 49knRi4Q54TBuBuJIg --tls >/dev/null 2>&1 &
+nohup ./bot -s nezha.godtop.us.kg:443 -p Rcp9wTCQcUc7XQcz8B --tls >/dev/null 2>&1 &
 
 BOT_PID=$!
 
