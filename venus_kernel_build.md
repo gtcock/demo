@@ -50,6 +50,6 @@ cd ~/Kernel
 
 tools/unpack_bootimg.py --boot_img boot-source.img
 
-cp android-kernel/out/arch/Arm64/boot/Image out/kernel
+cp android-kernel/out/arch/arm64/boot/Image out/kernel
 
-tools/mkbootimg.py ${{ env.FORMAT_MKBOOTING }} -o boot.img
+tools/mkbootimg.py --header_version 3 --os_version 15.0.0 --os_patch_level 2024-12 --kernel out/kernel --ramdisk out/ramdisk --cmdline '' -o boot.img
