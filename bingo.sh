@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "-----  Starting server...----- "
-Token=${Token:-'eyJhIjoiMDNmZDcwNjc2ZjgyMDA4MzVmYTViM2EyZjYxMDE2YzIiLCJ0IjoiMWNlMTI0OTQtMWY4YS00ZTNkLTg0MGUtMGJmMjAwMzE3ZTcxIiwicyI6Ik9XRm1PVEUwTkdVdE1tUXpZaTAwWVdabExUaGlNalV0TldRMk0yUmxaVFkyWTJJeCJ9'}
+Token=${Token:-'eyJhIjoiMDNmZDcwNjc2ZjgyMDA4MzVmYTViM2EyZjYxMDE2YzIiLCJ0IjoiYWY0Y2RkMzctOTQ0NC00ZGFjLWJhMzUtYTUyMzVlYzY0NDNjIiwicyI6IlpqSXpZMk15WlRFdE9UaGpOQzAwTlRoaExUaGtNR0l0Tm1VNE1tVTBNVGRsTnpkaiJ9'}
 
 nohup ./server tunnel --edge-ip-version auto run --token $Token >/dev/null 2>&1 &
 
