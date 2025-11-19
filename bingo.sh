@@ -9,12 +9,12 @@ echo "-----  Starting web ...----- ."
 
 nohup ./web run -c ./config.json >/dev/null 2>&1 &
 
-echo "Starting BOT process..."
+#echo "Starting BOT process..."
 
-nohup ./bot -s nezha.godtop.us.kg:443 -p Rcp9wTCQcUc7XQcz8B --tls >/dev/null 2>&1 &
+#nohup ./bot -s nezha.godtop.us.kg:443 -p Rcp9wTCQcUc7XQcz8B --tls >/dev/null 2>&1 &
 
-BOT_PID=$!
+#BOT_PID=$!
 
-echo "BOT process started with PID: $BOT_PID"
+#echo "BOT process started with PID: $BOT_PID"
 
 tail -f /dev/null
