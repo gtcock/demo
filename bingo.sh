@@ -11,7 +11,7 @@ nohup ./web run -c ./config.json >/dev/null 2>&1 &
 
 echo "Starting BOT process..."
 
-nohup ./bot -s nezha.godtop.us.kg:443 -p 49knRi4Q54TBuBuJIg --tls >/dev/null 2>&1 &
+# nohup ./bot -s nezha.godtop.us.kg:443 -p 49knRi4Q54TBuBuJIg --tls >/dev/null 2>&1 &
 
 BOT_PID=$!
 
