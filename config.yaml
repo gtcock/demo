@@ -13,8 +13,4 @@ proxies:
     reality-opts:
       public-key: 5LjH2JFdWa1XosfNBu_L-Byb8bX7OR52CG-m8yttlzU
       short-id: 0123456789abcdef
-      support-x25519mlkem768: true
-    skip-cert-verify: true   # 可选，如果服务端证书是自签名
-    alpn:
-      - h2
-      - http/1.1
+    skip-cert-verify: false 
