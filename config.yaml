@@ -5,11 +5,16 @@ proxies:
     port: 443
     uuid: 3cf397a9-dcdd-4a6d-b22b-3984abac869e
     network: tcp
-    tls: false
-    udp: true
+    tls: true
+    sni: www.unlv.edu
+    servername: www.unlv.edu
     flow: xtls-rprx-vision
+    client-fingerprint: chrome
     reality-opts:
       public-key: 5LjH2JFdWa1XosfNBu_L-Byb8bX7OR52CG-m8yttlzU
       short-id: 0123456789abcdef
-      server-name: www.unlv.edu   # ✅ 这里就是 SNI
-    client-fingerprint: chrome
+      support-x25519mlkem768: true
+    skip-cert-verify: true   # 可选，如果服务端证书是自签名
+    alpn:
+      - h2
+      - http/1.1
