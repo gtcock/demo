@@ -1,0 +1,15 @@
+proxies:
+  - name: "MyRealityNode"
+    type: vless
+    server: 148.135.64.233
+    port: 443
+    uuid: 3cf397a9-dcdd-4a6d-b22b-3984abac869e
+    network: tcp
+    tls: false
+    udp: true
+    flow: xtls-rprx-vision
+    reality-opts:
+      public-key: 5LjH2JFdWa1XosfNBu_L-Byb8bX7OR52CG-m8yttlzU
+      short-id: 0123456789abcdef
+      server-name: www.unlv.edu   # ✅ 这里就是 SNI
+    client-fingerprint: chrome
